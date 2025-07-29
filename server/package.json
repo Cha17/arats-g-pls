@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "scripts": {
+    "dev": "bun run --hot src/index.ts",
+    "generate-types": "kysely-codegen"
+  },
+  "dependencies": {
+    "@kinde-oss/kinde-auth-nextjs": "^2.8.6",
+    "@kinde-oss/kinde-typescript-sdk": "^2.12.0",
+    "@neondatabase/serverless": "^1.0.1",
+    "@types/pg": "^8.15.5",
+    "drizzle-kit": "^0.31.4",
+    "drizzle-orm": "^0.44.4",
+    "hono": "^4.8.9",
+    "jose": "^6.0.12",
+    "jsonwebtoken": "^9.0.2",
+    "jwks-rsa": "^3.2.0",
+    "kysely": "^0.28.3",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.1.0",
+    "kysely-codegen": "^0.18.5"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1753557776941,
+      "tag": "0000_polite_spyke",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1753629617267,
+      "tag": "0001_parallel_brood",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1753648162984,
+      "tag": "0002_jittery_mantis",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1753648462349,
+      "tag": "0003_rare_maginty",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1753648785245,
+      "tag": "0004_furry_drax",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1753733335817,
+      "tag": "0005_late_havok",
+      "breakpoints": true
+    }
+  ]
+}
