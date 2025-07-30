@@ -11,8 +11,8 @@ function AdminDashboardContent() {
   const { user, isAuthenticated, isLoading, redirectBasedOnRole } = useAuth();
 
   useEffect(() => {
-    // Auto-redirect authenticated users to their dashboard
-    if (isAuthenticated && user) {
+    // Only redirect if the user is authenticated but not an admin
+    if (isAuthenticated && user && user.role !== "admin-arats") {
       redirectBasedOnRole();
     }
   }, [isAuthenticated, user, redirectBasedOnRole]);

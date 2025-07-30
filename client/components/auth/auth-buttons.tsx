@@ -13,7 +13,7 @@ export function AuthButtons() {
   if (isLoading) return <div>Loading...</div>;
 
   return (
-    <div className="rounded-md bg-blue-950 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-pink-300 hover:text-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
+    <div className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-950 hover:bg-pink-300 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
       {isAuthenticated ? (
         <LogoutLink>Log out</LogoutLink>
       ) : (
