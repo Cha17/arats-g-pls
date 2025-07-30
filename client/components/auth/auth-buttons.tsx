@@ -17,9 +17,7 @@ export function AuthButtons() {
       {isAuthenticated ? (
         <LogoutLink>Log out</LogoutLink>
       ) : (
-        <LoginLink postLoginRedirectURL="/api/auth/kinde_callback">
-          Log in
-        </LoginLink>
+        <LoginLink>Log in</LoginLink>
       )}
     </div>
   );
