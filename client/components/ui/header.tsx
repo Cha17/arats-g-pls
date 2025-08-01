@@ -5,10 +5,11 @@ import Image from "next/image";
 import { useState } from "react";
 import Background from "./background";
 import { AuthButtons } from "../auth/auth-buttons";
-import { LoginLink } from "@kinde-oss/kinde-auth-nextjs";
+import { useAuth } from "@/hooks/useAuth";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, isAuthenticated } = useAuth();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
@@ -34,13 +35,15 @@ const Header = () => {
             <Link href="/about" className="text-gray-900 hover:text-blue-800">
               About
             </Link>
-            <Link href="/contact" className="text-gray-900 hover:text-blue-800">
-              Contact
-            </Link>
-
-            <LoginLink className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-950 hover:bg-pink-300 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
-              Sign In
-            </LoginLink>
+            {isAuthenticated && (
+              <Link
+                href="/user/dashboard"
+                className="text-gray-900 hover:text-blue-800"
+              >
+                Dashboard
+              </Link>
+            )}
+            <AuthButtons />
           </div>
 
           {/* Mobile Menu Button */}
@@ -72,29 +75,18 @@ const Header = () => {
               >
                 About
               </Link>
-              <Link
-                href="/contact"
-                className="text-gray-700 hover:text-blue-600 py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Contact
-              </Link>
+              {isAuthenticated && (
+                <Link
+                  href="/user/dashboard"
+                  className="text-gray-700 hover:text-blue-600 py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Dashboard
+                </Link>
+              )}
               <div className="space-y-3">
-                {/* <AuthButtons /> */}
-                <LoginLink className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
-                  Sign Innnn
-                </LoginLink>
+                <AuthButtons />
               </div>
-              <LoginLink className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
-                Sign Innnn
-              </LoginLink>
-              <Link
-                href="/login"
-                className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 inline-block text-center"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Login
-              </Link>
             </div>
           </div>
         )}

@@ -9,19 +9,60 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
   ? ColumnType<S, I | undefined, U>
   : ColumnType<T, T | undefined, T>;
 
+export type Int8 = ColumnType<string, bigint | number | string, bigint | number | string>;
+
+export type Numeric = ColumnType<string, number | string, number | string>;
+
+export type RegistrationStatus = "cancelled" | "confirmed" | "waitlist";
+
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
+export type UserRole = "admin-arats" | "arats-user";
+
+export interface DrizzleDrizzleMigrations {
+  created_at: Int8 | null;
+  hash: string;
+  id: Generated<number>;
+}
+
+export interface EventRegistrations {
+  event_id: string;
+  id: Generated<string>;
+  is_paid: Generated<boolean | null>;
+  registration_date: Generated<Timestamp | null>;
+  status: Generated<RegistrationStatus | null>;
+  user_id: string;
+}
+
+export interface Events {
+  author_name: string;
+  created_at: Generated<Timestamp | null>;
+  date: Timestamp;
+  description: string | null;
+  id: Generated<string>;
+  image_urls: string | null;
+  is_active: Generated<boolean | null>;
+  location: string | null;
+  price: Generated<Numeric | null>;
+  title: string;
+  updated_at: Generated<Timestamp | null>;
+}
+
 export interface Users {
-  createdAt: Generated<Timestamp | null>;
+  created_at: Generated<Timestamp | null>;
   email: string;
-  firstName: string | null;
-  id: string;
-  kindeId: string;
-  lastName: string | null;
-  pictureUrl: string | null;
-  updatedAt: Generated<Timestamp | null>;
+  first_name: string | null;
+  id: Generated<string>;
+  is_active: Generated<boolean | null>;
+  kinde_id: string;
+  last_name: string | null;
+  role: Generated<UserRole>;
+  updated_at: Generated<Timestamp | null>;
 }
 
 export interface DB {
+  "drizzle.__drizzle_migrations": DrizzleDrizzleMigrations;
+  event_registrations: EventRegistrations;
+  events: Events;
   users: Users;
 }
