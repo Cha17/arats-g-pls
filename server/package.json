@@ -1,7 +1,5 @@
 {
   "name": "server",
-  "type": "module",
-  "main": "index.ts",
   "scripts": {
     "dev": "bun run --hot src/index.ts",
     "build": "echo 'Build completed'",
