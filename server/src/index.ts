@@ -33,5 +33,7 @@ app.route('/api/auth', authRoutes);
 //   });
 // });
 
-// Export for Vercel
-export default app;
+export default {
+  port: 8080,
+  fetch: app.fetch,
+}
