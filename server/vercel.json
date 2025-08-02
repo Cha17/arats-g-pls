@@ -1,22 +1,15 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "src/index.ts",
-      "use": "@vercel/bun"
+  "functions": {
+    "src/index.ts": {
+      "runtime": "@vercel/bun@1.0.0"
     }
-  ],
+  },
   "routes": [
     {
       "src": "/(.*)",
       "dest": "/src/index.ts"
     }
   ],
-  "installCommand": "bun install",
-  "buildCommand": "bun run build",
-  "functions": {
-    "src/index.ts": {
-      "runtime": "@vercel/bun@1.0.0"
-    }
-  }
+  "installCommand": "bun install"
 }
