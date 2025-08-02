@@ -17,10 +17,21 @@ app.route('/api/auth', authRoutes);
 
 // Health check
 app.get('/health', (c) => {
-  return c.json({ status: 'OK', timestamp: new Date().toISOString() });
+  return c.json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development'
+  });
 });
 
-export default {
-  port: 8080,
-  fetch: app.fetch,
-}
+// Root endpoint for Vercel
+app.get('/', (c) => {
+  return c.json({ 
+    message: 'ARATS API Server',
+    status: 'running',
+    timestamp: new Date().toISOString()
+  });
+});
+
+// Export for Vercel
+export default app;
