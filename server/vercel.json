@@ -1,6 +1,14 @@
 {
   "version": 2,
-  "buildCommand": "bun run build",
-  "outputDirectory": "dist",
-  "installCommand": "bun install"
+  "functions": {
+    "index.js": {
+      "runtime": "edge"
+    }
+  },
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.js"
+    }
+  ]
 }
