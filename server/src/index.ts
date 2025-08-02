@@ -24,14 +24,14 @@ app.get('/health', (c) => {
   });
 });
 
-// Root endpoint for Vercel
-app.get('/', (c) => {
-  return c.json({ 
-    message: 'ARATS API Server',
-    status: 'running',
-    timestamp: new Date().toISOString()
-  });
-});
+// // Root endpoint for Vercel
+// app.get('/', (c) => {
+//   return c.json({ 
+//     message: 'ARATS API Server',
+//     status: 'running',
+//     timestamp: new Date().toISOString()
+//   });
+// });
 
 // Export for Vercel
 export default app;
