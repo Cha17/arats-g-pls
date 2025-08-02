@@ -1,7 +1,6 @@
 {
   "version": 2,
-  "rootDirectory": "client",
   "buildCommand": "bun run build",
   "installCommand": "bun install",
-  "outputDirectory": ".next"
+  "outputDirectory": "dist"
 } 
