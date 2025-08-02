@@ -20,5 +20,7 @@ app.get('/health', (c) => {
   return c.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
-// Export for Vercel serverless functions
-export default app;
+export default {
+  port: 8080,
+  fetch: app.fetch,
+}
