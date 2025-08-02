@@ -1,7 +1,10 @@
 {
   "name": "server",
+  "main": "src/index.ts",
   "scripts": {
     "dev": "bun run --hot src/index.ts",
+    "build": "echo 'Build completed'",
+    "start": "bun run src/index.ts",
     "generate-types": "kysely-codegen"
   },
   "dependencies": {

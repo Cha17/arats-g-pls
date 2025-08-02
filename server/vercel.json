@@ -1,6 +1,10 @@
 {
   "version": 2,
   "buildCommand": "bun run build",
-  "outputDirectory": "dist",
-  "installCommand": "bun install"
+  "installCommand": "bun install",
+  "functions": {
+    "src/index.ts": {
+      "runtime": "bun@1.0.35"
+    }
+  }
 }
