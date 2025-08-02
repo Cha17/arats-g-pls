@@ -1,5 +1,15 @@
 {
   "version": 2,
-  "buildCommand": "bun run build",
-  "installCommand": "bun install"
+  "builds": [
+    {
+      "src": "src/index.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "src/index.ts"
+    }
+  ]
 }
