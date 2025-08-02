@@ -4,6 +4,7 @@
 import { useAuth } from "../hooks/useAuth";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { LoadingSpinner } from "@/components/ui/skeleton";
 
 interface AuthWrapperProps {
   children: React.ReactNode;
@@ -38,7 +39,7 @@ export const AuthWrapper: React.FC<AuthWrapperProps> = ({
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+        <LoadingSpinner size="lg" />
       </div>
     );
   }

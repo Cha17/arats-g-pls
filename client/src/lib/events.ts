@@ -6,6 +6,28 @@ console.log('🔧 NEXT_PUBLIC_API_URL:', process.env.NEXT_PUBLIC_API_URL);
 console.log('🔧 API_BASE_URL:', API_BASE_URL);
 console.log('🔧 NODE_ENV:', process.env.NODE_ENV);
 
+// Helper function to get a working image URL
+export function getImageUrl(imageUrl: string | null): string | null {
+  if (!imageUrl) return null;
+  
+  // If it's already a valid URL, return it
+  if (imageUrl.startsWith('http')) {
+    return imageUrl;
+  }
+  
+  // If it's a Google Drive ID, convert to proper URL
+  if (imageUrl.includes('drive.google.com')) {
+    // Extract file ID from Google Drive URL
+    const match = imageUrl.match(/[-\w]{25,}/);
+    if (match) {
+      return `https://drive.google.com/uc?export=view&id=${match[0]}`;
+    }
+  }
+  
+  // Fallback to placeholder image
+  return `https://picsum.photos/400/300?random=${Math.random()}`;
+}
+
 export interface Event {
   id: string;
   title: string;

@@ -18,16 +18,19 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
-import { Event, fetchFeaturedEvents } from "@/src/lib/events";
+import { Event, fetchFeaturedEvents, getImageUrl } from "@/src/lib/events";
 import { useAuth } from "@/hooks/useAuth";
 import { registerForEvent } from "@/src/lib/events";
 import { toast } from "react-hot-toast";
+import Image from "next/image";
+import { EventCarouselSkeleton } from "@/components/ui/skeleton";
 import {
   ChevronLeft,
   ChevronRight,
   AlertCircle,
   RefreshCw,
 } from "lucide-react";
+import { LoginPromptDialog } from "@/components/auth/LoginPromptDialog";
 
 interface EventCarouselProps {
   onRegister?: () => void;
@@ -39,6 +42,7 @@ export function EventCarousel({ onRegister }: EventCarouselProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isRegistering, setIsRegistering] = useState<string | null>(null);
+  const [showLoginDialog, setShowLoginDialog] = useState(false);
 
   const loadEvents = async () => {
     try {
@@ -68,7 +72,7 @@ export function EventCarousel({ onRegister }: EventCarouselProps) {
 
   const handleRegister = async (eventId: string) => {
     if (!user) {
-      toast.error("Please sign in to register for events");
+      setShowLoginDialog(true);
       return;
     }
 
@@ -87,11 +91,7 @@ export function EventCarousel({ onRegister }: EventCarouselProps) {
   };
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
-    );
+    return <EventCarouselSkeleton />;
   }
 
   if (error) {
@@ -114,7 +114,7 @@ export function EventCarousel({ onRegister }: EventCarouselProps) {
 
   if (events.length === 0) {
     return (
-      <div className="w-full h-64 flex items-center justify-center bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg">
+      <div className="w-full h-64 flex items-center justify-center bg-gradient-to-r from-blue-100 to-purple-500 rounded-lg">
         <div className="text-center">
           <h3 className="text-lg font-semibold text-gray-600 mb-2">
             No Featured Events
@@ -146,22 +146,36 @@ export function EventCarousel({ onRegister }: EventCarouselProps) {
                 className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3"
               >
                 <Card className="h-full hover:shadow-lg transition-shadow duration-200">
-                  <CardHeader className="pb-3">
+                  <CardHeader className="">
                     <div className="relative h-48 w-full overflow-hidden rounded-lg mb-4">
-                      {event.image_urls ? (
-                        <img
-                          src={event.image_urls}
-                          alt={event.title}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
-                          <span className="text-gray-500 text-sm">
-                            No image
-                          </span>
-                        </div>
-                      )}
+                      {(() => {
+                        const imageUrl = getImageUrl(event.image_urls);
+                        return imageUrl ? (
+                          <Image
+                            src={imageUrl}
+                            alt={event.title}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            onError={(e) => {
+                              console.error("Image failed to load:", imageUrl);
+                              e.currentTarget.style.display = "none";
+                              e.currentTarget.nextElementSibling?.classList.remove(
+                                "hidden"
+                              );
+                            }}
+                          />
+                        ) : null;
+                      })()}
+                      <div
+                        className={`w-full h-full bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center ${
+                          event.image_urls ? "hidden" : ""
+                        }`}
+                      >
+                        <span className="text-gray-500 text-sm">
+                          {event.image_urls ? "Image unavailable" : "No image"}
+                        </span>
+                      </div>
                       <div className="absolute top-2 right-2">
                         <Badge variant={isFree ? "secondary" : "default"}>
                           {isFree ? "Free" : `₱${event.price}`}
@@ -177,8 +191,8 @@ export function EventCarousel({ onRegister }: EventCarouselProps) {
                     </CardDescription>
                   </CardHeader>
 
-                  <CardContent className="pb-3">
-                    <div className="space-y-2">
+                  <CardContent>
+                    <div className="space-y-1">
                       <div className="flex items-center gap-2 text-sm text-gray-600">
                         <span className="font-medium">📅</span>
                         <span>
@@ -200,7 +214,7 @@ export function EventCarousel({ onRegister }: EventCarouselProps) {
                     </div>
                   </CardContent>
 
-                  <div className="px-6 pb-6">
+                  <div className="px-6">
                     <Button
                       onClick={() => handleRegister(event.id)}
                       disabled={isRegistering === event.id || isPastEvent}
@@ -225,6 +239,11 @@ export function EventCarousel({ onRegister }: EventCarouselProps) {
           <CarouselNext className="right-4" />
         </div>
       </Carousel>
+
+      <LoginPromptDialog
+        isOpen={showLoginDialog}
+        onClose={() => setShowLoginDialog(false)}
+      />
     </div>
   );
 }

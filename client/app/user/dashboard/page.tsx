@@ -20,6 +20,11 @@ import { format } from "date-fns";
 import { Calendar, MapPin, User, Clock, X } from "lucide-react";
 import { toast } from "react-hot-toast";
 import Link from "next/link";
+import {
+  DashboardStatsSkeleton,
+  RegistrationCardSkeleton,
+  EventCarouselSkeleton,
+} from "@/components/ui/skeleton";
 
 export default function UserDashboard() {
   return (
@@ -104,7 +109,11 @@ function UserDashboardContent() {
               </p>
             </div>
 
-            <EventCarousel onRegister={handleEventRegister} />
+            {isLoading ? (
+              <EventCarouselSkeleton />
+            ) : (
+              <EventCarousel onRegister={handleEventRegister} />
+            )}
 
             <div className="mt-8 text-center">
               <Link href="/events">
@@ -116,49 +125,73 @@ function UserDashboardContent() {
           </div>
 
           {/* Quick Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Total Registrations
-                </CardTitle>
-                <Calendar className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{registrations.length}</div>
-              </CardContent>
-            </Card>
+          {isLoading ? (
+            <DashboardStatsSkeleton />
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Total Registrations
+                  </CardTitle>
+                  <Calendar className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    {registrations.length}
+                  </div>
+                </CardContent>
+              </Card>
 
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Upcoming Events
-                </CardTitle>
-                <Clock className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {upcomingEvents.length}
-                </div>
-              </CardContent>
-            </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Upcoming Events
+                  </CardTitle>
+                  <Clock className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    {upcomingEvents.length}
+                  </div>
+                </CardContent>
+              </Card>
 
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Past Events
-                </CardTitle>
-                <MapPin className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{pastEvents.length}</div>
-              </CardContent>
-            </Card>
-          </div>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Past Events
+                  </CardTitle>
+                  <MapPin className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{pastEvents.length}</div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
 
           {isLoading ? (
-            <div className="flex justify-center items-center h-64">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            <div className="space-y-8">
+              {/* Upcoming Events Skeleton */}
+              <div>
+                <div className="h-8 w-64 bg-gray-200 rounded mb-6"></div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[1, 2, 3].map((i) => (
+                    <RegistrationCardSkeleton key={i} />
+                  ))}
+                </div>
+              </div>
+
+              {/* Past Events Skeleton */}
+              <div>
+                <div className="h-8 w-48 bg-gray-200 rounded mb-6"></div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[1, 2].map((i) => (
+                    <RegistrationCardSkeleton key={i} />
+                  ))}
+                </div>
+              </div>
             </div>
           ) : (
             <div className="space-y-8">

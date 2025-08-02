@@ -9,6 +9,11 @@ import { Button } from "@/components/ui/button";
 import { Search, Filter } from "lucide-react";
 import Background from "@/components/ui/background";
 import Header from "@/components/ui/header";
+import {
+  PageHeaderSkeleton,
+  SearchBarSkeleton,
+  EventCardSkeleton,
+} from "@/components/ui/skeleton";
 
 export default function EventsPage() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -69,9 +74,17 @@ export default function EventsPage() {
       <>
         <Background />
         <Header />
-        <div className="min-h-screen bg-white dark:bg-gray-900 pt-20">
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="min-h-screen bg-stone-100 dark:bg-gray-900 pt-20">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
+            <PageHeaderSkeleton />
+            <div className="mb-8">
+              <SearchBarSkeleton />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                <EventCardSkeleton key={i} />
+              ))}
+            </div>
           </div>
         </div>
       </>
