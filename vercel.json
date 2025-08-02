@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "bun run build",
-  "installCommand": "bun install",
-  "outputDirectory": ".next"
+  "buildCommand": "npm run build --workspace=client",
+  "installCommand": "npm install",
+  "outputDirectory": "client/.next"
 } 
