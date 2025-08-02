@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "cd client && bun run build",
-  "outputDirectory": "client/.next",
-  "installCommand": "cd client && bun install"
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "outputDirectory": "client/.next"
 } 
