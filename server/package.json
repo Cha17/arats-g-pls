@@ -2,8 +2,8 @@
   "name": "server",
   "scripts": {
     "dev": "bun run --hot src/index.ts",
-    "build": "bun run build",
-    "start": "bun run start",
+    "build": "bun build src/index.ts --outdir dist --target bun",
+    "start": "bun run dist/index.js",
     "generate-types": "kysely-codegen"
   },
   "dependencies": {
