@@ -15,14 +15,14 @@ app.use('*', cors({
 app.route('/api/auth', authRoutes);
 // app.route('/api/webhooks', webhookRoutes);
 
-// Health check
-app.get('/health', (c) => {
-  return c.json({ 
-    status: 'OK', 
-    timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development'
-  });
-});
+// // Health check
+// app.get('/health', (c) => {
+//   return c.json({ 
+//     status: 'OK', 
+//     timestamp: new Date().toISOString(),
+//     environment: process.env.NODE_ENV || 'development'
+//   });
+// });
 
 // // Root endpoint for Vercel
 // app.get('/', (c) => {
