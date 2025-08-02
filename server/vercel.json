@@ -3,7 +3,7 @@
   "buildCommand": "bun run build",
   "installCommand": "bun install",
   "functions": {
-    "api/[...path].ts": {
+    "api/**/*.ts": {
       "runtime": "bun@1.0.35"
     }
   }
