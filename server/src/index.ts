@@ -24,4 +24,9 @@ app.get('/health', (c) => {
   return c.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
+// Root route for testing
+app.get('/', (c) => {
+  return c.json({ message: 'Server is running!' });
+});
+
 export default app;

@@ -12,7 +12,7 @@
       "dest": "src/index.ts"
     }
   ],
-  "buildCommand": "bun run build",
+  "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "installCommand": "bun install"
+  "installCommand": "npm install"
 }

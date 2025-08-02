@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "bun run --hot src/index.ts",
     "build": "echo 'Build completed'",
-    "start": "bun run src/index.ts",
+    "start": "node dist/index.js",
     "generate-types": "kysely-codegen"
   },
   "dependencies": {
