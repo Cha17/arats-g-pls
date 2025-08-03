@@ -4,7 +4,9 @@ export async function apiCall(endpoint: string, options: RequestInit = {}) {
   const { getAccessToken } = getKindeServerSession();
   const accessToken = await getAccessToken();
 
-  return fetch(`http://localhost:8080${endpoint}`, {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
+
+  return fetch(`${apiUrl}${endpoint}`, {
     ...options,
     headers: {
       ...options.headers,

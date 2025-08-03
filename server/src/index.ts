@@ -15,25 +15,23 @@ app.use('*', cors({
 app.route('/api/auth', authRoutes);
 // app.route('/api/webhooks', webhookRoutes);
 
-// // Health check
-// app.get('/health', (c) => {
-//   return c.json({ 
-//     status: 'OK', 
-//     timestamp: new Date().toISOString(),
-//     environment: process.env.NODE_ENV || 'development'
-//   });
-// });
+// Health check
+app.get('/health', (c) => {
+  return c.json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
 
-// // Root endpoint for Vercel
-// app.get('/', (c) => {
-//   return c.json({ 
-//     message: 'ARATS API Server',
-//     status: 'running',
-//     timestamp: new Date().toISOString()
-//   });
-// });
+// Root endpoint for Vercel
+app.get('/', (c) => {
+  return c.json({ 
+    message: 'ARATS API Server',
+    status: 'running',
+    timestamp: new Date().toISOString()
+  });
+});
 
-export default {
-  port: 8080,
-  fetch: app.fetch,
-}
+// Export for Vercel serverless functions
+export default app;
