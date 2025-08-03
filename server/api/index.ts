@@ -1,7 +1,6 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
-import authRoutes from './routes/auth';
-// import webhookRoutes from './routes/webhooks';
+import authRoutes from '../src/routes/auth';
 
 const app = new Hono();
 
@@ -12,8 +11,7 @@ app.use('*', cors({
 }));
 
 // Routes
-app.route('/api/auth', authRoutes);
-// app.route('/api/webhooks', webhookRoutes);
+app.route('/auth', authRoutes);
 
 // Health check
 app.get('/health', (c) => {
@@ -34,11 +32,4 @@ app.get('/', (c) => {
 });
 
 // Export for Vercel serverless functions
-export default app;
-
-// Also export the fetch handler for Vercel
-export const GET = app.fetch;
-export const POST = app.fetch;
-export const PUT = app.fetch;
-export const DELETE = app.fetch;
-export const PATCH = app.fetch;
+export default app; 

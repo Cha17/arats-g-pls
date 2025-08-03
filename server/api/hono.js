@@ -1,7 +1,5 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
-import authRoutes from './routes/auth';
-// import webhookRoutes from './routes/webhooks';
 
 const app = new Hono();
 
@@ -10,10 +8,6 @@ app.use('*', cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:3000',
   credentials: true,
 }));
-
-// Routes
-app.route('/api/auth', authRoutes);
-// app.route('/api/webhooks', webhookRoutes);
 
 // Health check
 app.get('/health', (c) => {
@@ -24,7 +18,7 @@ app.get('/health', (c) => {
   });
 });
 
-// Root endpoint for Vercel
+// Root endpoint
 app.get('/', (c) => {
   return c.json({ 
     message: 'ARATS API Server',
@@ -33,12 +27,5 @@ app.get('/', (c) => {
   });
 });
 
-// Export for Vercel serverless functions
-export default app;
-
-// Also export the fetch handler for Vercel
-export const GET = app.fetch;
-export const POST = app.fetch;
-export const PUT = app.fetch;
-export const DELETE = app.fetch;
-export const PATCH = app.fetch;
+// Export for Vercel
+export default app; 
