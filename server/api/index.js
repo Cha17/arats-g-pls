@@ -3,10 +3,17 @@ import { cors } from 'hono/cors';
 
 const app = new Hono();
 
-// CORS middleware
+// CORS middleware - Allow multiple origins
 app.use('*', cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: [
+    'https://arats-client.vercel.app',
+    'http://localhost:3000',
+    process.env.FRONTEND_URL
+  ].filter(Boolean),
   credentials: true,
+  allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  exposeHeaders: ['Content-Length', 'X-Requested-With'],
 }));
 
 // Health check
@@ -23,6 +30,25 @@ app.get('/', (c) => {
   return c.json({ 
     message: 'ARATS API Server',
     status: 'running',
+    timestamp: new Date().toISOString()
+  });
+});
+
+// Events endpoints
+app.get('/events', (c) => {
+  return c.json({ 
+    success: true,
+    events: [],
+    message: 'Events endpoint - implement your events logic here',
+    timestamp: new Date().toISOString()
+  });
+});
+
+app.get('/events/featured', (c) => {
+  return c.json({ 
+    success: true,
+    events: [],
+    message: 'Featured events endpoint - implement your featured events logic here',
     timestamp: new Date().toISOString()
   });
 });
