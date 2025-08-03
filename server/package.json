@@ -1,11 +1,10 @@
 {
   "name": "server",
-  "main": "index.js",
   "scripts": {
-    "dev": "node index.js",
-    "build": "echo 'No build step needed'",
-    "start": "node index.js",
-    "vercel-build": "echo 'No build step needed'",
+    "dev": "bun run --hot src/index.ts",
+    "build": "tsc",
+    "start": "node dist/src/index.js",
+    "vercel-build": "tsc",
     "generate-types": "kysely-codegen"
   },
   "dependencies": {
